@@ -120,10 +120,19 @@ public class Vod {
             return episodes;
         }
 
+        public void deactivated() {
+            for (Episode item : getEpisodes()) item.deactivated();
+        }
+
+        public void setActivated(Episode episode) {
+            for (Episode item : getEpisodes()) item.setActivated(episode);
+        }
+
         public static class Episode {
 
             private final String name;
             private final String url;
+            private boolean activated;
 
             public Episode(String name, String url) {
                 this.name = name;
@@ -136,6 +145,18 @@ public class Vod {
 
             public String getUrl() {
                 return url;
+            }
+
+            public boolean isActivated() {
+                return activated;
+            }
+
+            private void deactivated() {
+                this.activated = false;
+            }
+
+            private void setActivated(Episode item) {
+                this.activated = item.equals(this);
             }
         }
     }
